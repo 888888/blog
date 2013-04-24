@@ -1,0 +1,1503 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>API Reference (132)</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="font-family: 新宋体, sans-serif; ">API Reference (132)</span>
+<ul><li><span style="font-family: 新宋体, sans-serif; ">&#xa;    <p>&#xa;      Identity(2)&#xa;    </p>&#xa;  </span>
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2.0/tokens</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: 新宋体, sans-serif; ">POST</span>
+<p><span style="font-family: 新宋体, sans-serif; ">{
+<br>
+ &nbsp;&nbsp;&nbsp;"auth":{
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"passwordCredentials":{
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"username":"test_user",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"password":"mypass"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tenantName":"customer-x"
+<br>
+ &nbsp;&nbsp;&nbsp;}
+<br>
+}</span>
+<p><span style="font-family: 新宋体, sans-serif; ">"Content-Type": "application/json"</span>
+<p><span id="show1_1_1" class="foldclosed" onClick="show_folder('1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1" class="foldopened" onClick="hide_folder('1_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">&#36820;&#22238;</span>
+<ul id="fold1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: 新宋体, sans-serif; ">{
+<br>
+ &nbsp;"access" : {
+<br>
+ &nbsp;&nbsp;&nbsp;"token" : {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"expires" : "2012-12-15T07:52:13Z",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "02536eb0e4754dccbeb51a70b8623197",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tenant" : {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"enabled" : true,
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"description" : null,
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "admin",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "154378873dcc44e2914222ea7d94f2d2"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>
+ &nbsp;&nbsp;&nbsp;},
+<br>
+ &nbsp;&nbsp;&nbsp;"serviceCatalog" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:8774/v2/154378873dcc44e2914222ea7d94f2d2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:8774/v2/154378873dcc44e2914222ea7d94f2d2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "4797b101bc9c47039513ea09f3476bc0",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:8774/v2/154378873dcc44e2914222ea7d94f2d2"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "compute",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "nova"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:9696/",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:9696/",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "d41ab8e3e3124b1c9cf4062028d98cec",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:9696/"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "network",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "quantum"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:9292/v2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:9292/v2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "986c4b959e8f4614aed2c9bdaec4e9a7",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:9292/v2"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "image",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "glance"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:8776/v1/154378873dcc44e2914222ea7d94f2d2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:8776/v1/154378873dcc44e2914222ea7d94f2d2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "237f93a51c45446bafc44aa7b0f985ae",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:8776/v1/154378873dcc44e2914222ea7d94f2d2"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "volume",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "cinder"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:8773/services/Admin",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:8773/services/Cloud",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "c8ac09f08a294ab6b82f02172ca32ccc",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:8773/services/Cloud"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "ec2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "ec2"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:8080/v1",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:8080/v1/AUTH_154378873dcc44e2914222ea7d94f2d2",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "56c7f0315fab449b9d6a3e5242e20857",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:8080/v1/AUTH_154378873dcc44e2914222ea7d94f2d2"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "object-store",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "swift"
+<br>
+ &nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"adminURL" : "http://192.168.1.1:35357/v2.0",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"region" : "RegionOne",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"internalURL" : "http://192.168.1.1:5000/v2.0",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "c9caa26f239b4ce59a5047708210e04b",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"publicURL" : "http://192.168.1.1:5000/v2.0"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"endpoints_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type" : "identity",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "keystone"
+<br>
+ &nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;"user" : {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"username" : "admin",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"roles_links" : [ ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id" : "f82ce3de8e4c4b01b955b2d0177df8f8",
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"roles" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "KeystoneServiceAdmin"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "KeystoneAdmin"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "admin"
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} ],
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name" : "admin"
+<br>
+ &nbsp;&nbsp;&nbsp;},
+<br>
+ &nbsp;&nbsp;&nbsp;"metadata" : {
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"is_admin" : 0,
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"roles" : [ "31bf07c8bfe948ad9ed86d732667b632", "ace42d67d546470097811b47b27ac270", "f0e4620d792a446ab7b48e594bf8f790" ]
+<br>
+ &nbsp;&nbsp;&nbsp;}
+<br>
+ &nbsp;}
+<br>
+}</span>
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2.0/tenants</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">X-Auth-Token: token</span>
+
+</li>
+<li><span id="show1_2_1" class="foldclosed" onClick="show_folder('1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1" class="foldopened" onClick="hide_folder('1_2_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">&#36820;&#22238;&#20540;</span>
+<ul id="fold1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: 新宋体, sans-serif; ">{
+<br>
+ &nbsp;"tenants_links" : [ ],
+<br>
+ &nbsp;"tenants" : [ {
+<br>
+ &nbsp;&nbsp;&nbsp;"enabled" : true,
+<br>
+ &nbsp;&nbsp;&nbsp;"description" : null,
+<br>
+ &nbsp;&nbsp;&nbsp;"name" : "admin",
+<br>
+ &nbsp;&nbsp;&nbsp;"id" : "154378873dcc44e2914222ea7d94f2d2"
+<br>
+ &nbsp;}, {
+<br>
+ &nbsp;&nbsp;&nbsp;"enabled" : true,
+<br>
+ &nbsp;&nbsp;&nbsp;"description" : null,
+<br>
+ &nbsp;&nbsp;&nbsp;"name" : "demo",
+<br>
+ &nbsp;&nbsp;&nbsp;"id" : "8c409c1ce67f4e31b6e13014ae534c76"
+<br>
+ &nbsp;} ]
+<br>
+}</span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">Compute (20)</span>
+<ul><li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/extensions</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/extensions/{alias}</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/limits</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers</span>
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/detail</span>
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_9" class="foldclosed" onClick="show_folder('1_9')" style="POSITION: absolute">+</span> <span id="hide1_9" class="foldopened" onClick="hide_folder('1_9')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}</span>
+<ul id="fold1_9" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_10" class="foldclosed" onClick="show_folder('1_10')" style="POSITION: absolute">+</span> <span id="hide1_10" class="foldopened" onClick="hide_folder('1_10')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/metadata</span>
+<ul id="fold1_10" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_11" class="foldclosed" onClick="show_folder('1_11')" style="POSITION: absolute">+</span> <span id="hide1_11" class="foldopened" onClick="hide_folder('1_11')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/metadata/{key}</span>
+<ul id="fold1_11" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_12" class="foldclosed" onClick="show_folder('1_12')" style="POSITION: absolute">+</span> <span id="hide1_12" class="foldopened" onClick="hide_folder('1_12')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/action</span>
+<ul id="fold1_12" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_12_1" class="foldclosed" onClick="show_folder('1_12_1')" style="POSITION: absolute">+</span> <span id="hide1_12_1" class="foldopened" onClick="hide_folder('1_12_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">POST</span>
+<ul id="fold1_12_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">changePassword</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">reboot</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">rebuild</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">resize</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">confirmResize</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">revertResize</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">createImage</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_13" class="foldclosed" onClick="show_folder('1_13')" style="POSITION: absolute">+</span> <span id="hide1_13" class="foldopened" onClick="hide_folder('1_13')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/ips</span>
+<ul id="fold1_13" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_14" class="foldclosed" onClick="show_folder('1_14')" style="POSITION: absolute">+</span> <span id="hide1_14" class="foldopened" onClick="hide_folder('1_14')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/ips/{network_id}</span>
+<ul id="fold1_14" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_15" class="foldclosed" onClick="show_folder('1_15')" style="POSITION: absolute">+</span> <span id="hide1_15" class="foldopened" onClick="hide_folder('1_15')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/images</span>
+<ul id="fold1_15" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_16" class="foldclosed" onClick="show_folder('1_16')" style="POSITION: absolute">+</span> <span id="hide1_16" class="foldopened" onClick="hide_folder('1_16')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/images/detail</span>
+<ul id="fold1_16" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_17" class="foldclosed" onClick="show_folder('1_17')" style="POSITION: absolute">+</span> <span id="hide1_17" class="foldopened" onClick="hide_folder('1_17')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/images/{image_id}</span>
+<ul id="fold1_17" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_18" class="foldclosed" onClick="show_folder('1_18')" style="POSITION: absolute">+</span> <span id="hide1_18" class="foldopened" onClick="hide_folder('1_18')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/images/{image_id}/metadata</span>
+<ul id="fold1_18" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_19" class="foldclosed" onClick="show_folder('1_19')" style="POSITION: absolute">+</span> <span id="hide1_19" class="foldopened" onClick="hide_folder('1_19')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/images/{image_id}/metadata/{key}</span>
+<ul id="fold1_19" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_20" class="foldclosed" onClick="show_folder('1_20')" style="POSITION: absolute">+</span> <span id="hide1_20" class="foldopened" onClick="hide_folder('1_20')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/flavors</span>
+<ul id="fold1_20" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_21" class="foldclosed" onClick="show_folder('1_21')" style="POSITION: absolute">+</span> <span id="hide1_21" class="foldopened" onClick="hide_folder('1_21')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/flavors/detail</span>
+<ul id="fold1_21" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_22" class="foldclosed" onClick="show_folder('1_22')" style="POSITION: absolute">+</span> <span id="hide1_22" class="foldopened" onClick="hide_folder('1_22')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/flavors/{flavor_id}</span>
+<ul id="fold1_22" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">Extensions(72)</span>
+<ul><li><span id="show1_23" class="foldclosed" onClick="show_folder('1_23')" style="POSITION: absolute">+</span> <span id="hide1_23" class="foldopened" onClick="hide_folder('1_23')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Server-Extended Create</span>
+<ul id="fold1_23" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_23_1" class="foldclosed" onClick="show_folder('1_23_1')" style="POSITION: absolute">+</span> <span id="hide1_23_1" class="foldopened" onClick="hide_folder('1_23_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers</span>
+<ul id="fold1_23_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_23_2" class="foldclosed" onClick="show_folder('1_23_2')" style="POSITION: absolute">+</span> <span id="hide1_23_2" class="foldopened" onClick="hide_folder('1_23_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}</span>
+<ul id="fold1_23_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_23_3" class="foldclosed" onClick="show_folder('1_23_3')" style="POSITION: absolute">+</span> <span id="hide1_23_3" class="foldopened" onClick="hide_folder('1_23_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/detail</span>
+<ul id="fold1_23_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_24" class="foldclosed" onClick="show_folder('1_24')" style="POSITION: absolute">+</span> <span id="hide1_24" class="foldopened" onClick="hide_folder('1_24')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Server Admin</span>
+<ul id="fold1_24" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1" class="foldclosed" onClick="show_folder('1_24_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1" class="foldopened" onClick="hide_folder('1_24_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/action</span>
+<ul id="fold1_24_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_1" class="foldclosed" onClick="show_folder('1_24_1_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_1" class="foldopened" onClick="hide_folder('1_24_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">GET</span>
+<ul id="fold1_24_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">Diagnostics</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">OS-EXT-STS:vm_state</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">OS-EXT-STS:task_state</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">OS-EXT-STS:power_state</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_24_1_2" class="foldclosed" onClick="show_folder('1_24_1_2')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2" class="foldopened" onClick="hide_folder('1_24_1_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">POST</span>
+<ul id="fold1_24_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_2_1" class="foldclosed" onClick="show_folder('1_24_1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_1" class="foldopened" onClick="hide_folder('1_24_1_2_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">os-getConsoleOutput</span>
+<ul id="fold1_24_1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_2_1_1" class="foldclosed" onClick="show_folder('1_24_1_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_1_1" class="foldopened" onClick="hide_folder('1_24_1_2_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Server Console Output</span>
+<ul id="fold1_24_1_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_2_1_1_1" class="foldclosed" onClick="show_folder('1_24_1_2_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_1_1_1" class="foldopened" onClick="hide_folder('1_24_1_2_1_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/action</span>
+<ul id="fold1_24_1_2_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_24_1_2_2" class="foldclosed" onClick="show_folder('1_24_1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_2" class="foldopened" onClick="hide_folder('1_24_1_2_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">os-getVNCConsol</span>
+<ul id="fold1_24_1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_2_2_1" class="foldclosed" onClick="show_folder('1_24_1_2_2_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_2_1" class="foldopened" onClick="hide_folder('1_24_1_2_2_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Server VNC Console</span>
+<ul id="fold1_24_1_2_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_24_1_2_2_1_1" class="foldclosed" onClick="show_folder('1_24_1_2_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_24_1_2_2_1_1" class="foldopened" onClick="hide_folder('1_24_1_2_2_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/action</span>
+<ul id="fold1_24_1_2_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">os-stop</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">os-start</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">rescue</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">unrescue</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">pause</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">unpause</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">suspend</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">resume</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">migrate</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">resetNetwork</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">injectNetworkInfo</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">lock</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">unlock</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">createBackup</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">os-migrateLive</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">os-resetState</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">forceDelete</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">restore</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25" class="foldclosed" onClick="show_folder('1_25')" style="POSITION: absolute">+</span> <span id="hide1_25" class="foldopened" onClick="hide_folder('1_25')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Disk Config</span>
+<ul id="fold1_25" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_1" class="foldclosed" onClick="show_folder('1_25_1')" style="POSITION: absolute">+</span> <span id="hide1_25_1" class="foldopened" onClick="hide_folder('1_25_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Create Server</span>
+<ul id="fold1_25_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_1_1" class="foldclosed" onClick="show_folder('1_25_1_1')" style="POSITION: absolute">+</span> <span id="hide1_25_1_1" class="foldopened" onClick="hide_folder('1_25_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers</span>
+<ul id="fold1_25_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_1_1_1" class="foldclosed" onClick="show_folder('1_25_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_25_1_1_1" class="foldopened" onClick="hide_folder('1_25_1_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">POST</span>
+<ul id="fold1_25_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">OS-DCF:diskConfig</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25_2" class="foldclosed" onClick="show_folder('1_25_2')" style="POSITION: absolute">+</span> <span id="hide1_25_2" class="foldopened" onClick="hide_folder('1_25_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Server Detail</span>
+<ul id="fold1_25_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_2_1" class="foldclosed" onClick="show_folder('1_25_2_1')" style="POSITION: absolute">+</span> <span id="hide1_25_2_1" class="foldopened" onClick="hide_folder('1_25_2_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}</span>
+<ul id="fold1_25_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25_3" class="foldclosed" onClick="show_folder('1_25_3')" style="POSITION: absolute">+</span> <span id="hide1_25_3" class="foldopened" onClick="hide_folder('1_25_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Image List</span>
+<ul id="fold1_25_3" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_3_1" class="foldclosed" onClick="show_folder('1_25_3_1')" style="POSITION: absolute">+</span> <span id="hide1_25_3_1" class="foldopened" onClick="hide_folder('1_25_3_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/images/details</span>
+<ul id="fold1_25_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25_4" class="foldclosed" onClick="show_folder('1_25_4')" style="POSITION: absolute">+</span> <span id="hide1_25_4" class="foldopened" onClick="hide_folder('1_25_4')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Image Detail</span>
+<ul id="fold1_25_4" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_25_4_1" class="foldclosed" onClick="show_folder('1_25_4_1')" style="POSITION: absolute">+</span> <span id="hide1_25_4_1" class="foldopened" onClick="hide_folder('1_25_4_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/images/{image_id}</span>
+<ul id="fold1_25_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_25_5" class="foldclosed" onClick="show_folder('1_25_5')" style="POSITION: absolute">+</span> <span id="hide1_25_5" class="foldopened" onClick="hide_folder('1_25_5')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Extended Server Attributes</span>
+<ul id="fold1_25_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v2/servers</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v2/servers/{server_id}</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26" class="foldclosed" onClick="show_folder('1_26')" style="POSITION: absolute">+</span> <span id="hide1_26" class="foldopened" onClick="hide_folder('1_26')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Floating IPs</span>
+<ul id="fold1_26" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_26_1" class="foldclosed" onClick="show_folder('1_26_1')" style="POSITION: absolute">+</span> <span id="hide1_26_1" class="foldopened" onClick="hide_folder('1_26_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ips</span>
+<ul id="fold1_26_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_2" class="foldclosed" onClick="show_folder('1_26_2')" style="POSITION: absolute">+</span> <span id="hide1_26_2" class="foldopened" onClick="hide_folder('1_26_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ips/{id}</span>
+<ul id="fold1_26_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_3" class="foldclosed" onClick="show_folder('1_26_3')" style="POSITION: absolute">+</span> <span id="hide1_26_3" class="foldopened" onClick="hide_folder('1_26_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ip-dns</span>
+<ul id="fold1_26_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_4" class="foldclosed" onClick="show_folder('1_26_4')" style="POSITION: absolute">+</span> <span id="hide1_26_4" class="foldopened" onClick="hide_folder('1_26_4')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ip-dns/{domain}</span>
+<ul id="fold1_26_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_5" class="foldclosed" onClick="show_folder('1_26_5')" style="POSITION: absolute">+</span> <span id="hide1_26_5" class="foldopened" onClick="hide_folder('1_26_5')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{name}</span>
+<ul id="fold1_26_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_6" class="foldclosed" onClick="show_folder('1_26_6')" style="POSITION: absolute">+</span> <span id="hide1_26_6" class="foldopened" onClick="hide_folder('1_26_6')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ip-dns/{domain}/entries/{ip}</span>
+<ul id="fold1_26_6" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_26_7" class="foldclosed" onClick="show_folder('1_26_7')" style="POSITION: absolute">+</span> <span id="hide1_26_7" class="foldopened" onClick="hide_folder('1_26_7')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-floating-ip-pools</span>
+<ul id="fold1_26_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_27" class="foldclosed" onClick="show_folder('1_27')" style="POSITION: absolute">+</span> <span id="hide1_27" class="foldopened" onClick="hide_folder('1_27')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Host Aggregates</span>
+<ul id="fold1_27" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_27_1" class="foldclosed" onClick="show_folder('1_27_1')" style="POSITION: absolute">+</span> <span id="hide1_27_1" class="foldopened" onClick="hide_folder('1_27_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-aggregates</span>
+<ul id="fold1_27_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_27_2" class="foldclosed" onClick="show_folder('1_27_2')" style="POSITION: absolute">+</span> <span id="hide1_27_2" class="foldopened" onClick="hide_folder('1_27_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-aggregates/{aggregate_id}</span>
+<ul id="fold1_27_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_27_3" class="foldclosed" onClick="show_folder('1_27_3')" style="POSITION: absolute">+</span> <span id="hide1_27_3" class="foldopened" onClick="hide_folder('1_27_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-aggregates/{aggregate_id}/action</span>
+<ul id="fold1_27_3" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_27_3_1" class="foldclosed" onClick="show_folder('1_27_3_1')" style="POSITION: absolute">+</span> <span id="hide1_27_3_1" class="foldopened" onClick="hide_folder('1_27_3_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">POST</span>
+<ul id="fold1_27_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">set_metadata</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">add_host</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">remove_host</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_28" class="foldclosed" onClick="show_folder('1_28')" style="POSITION: absolute">+</span> <span id="hide1_28" class="foldopened" onClick="hide_folder('1_28')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Cloudpipe</span>
+<ul id="fold1_28" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_28_1" class="foldclosed" onClick="show_folder('1_28_1')" style="POSITION: absolute">+</span> <span id="hide1_28_1" class="foldopened" onClick="hide_folder('1_28_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-cloudpipe</span>
+<ul id="fold1_28_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_29" class="foldclosed" onClick="show_folder('1_29')" style="POSITION: absolute">+</span> <span id="hide1_29" class="foldopened" onClick="hide_folder('1_29')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Flavor Management</span>
+<ul id="fold1_29" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_29_1" class="foldclosed" onClick="show_folder('1_29_1')" style="POSITION: absolute">+</span> <span id="hide1_29_1" class="foldopened" onClick="hide_folder('1_29_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/flavors</span>
+<ul id="fold1_29_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_29_1_1" class="foldclosed" onClick="show_folder('1_29_1_1')" style="POSITION: absolute">+</span> <span id="hide1_29_1_1" class="foldopened" onClick="hide_folder('1_29_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">POST</span>
+<ul id="fold1_29_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">create</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">extra data</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_29_2" class="foldclosed" onClick="show_folder('1_29_2')" style="POSITION: absolute">+</span> <span id="hide1_29_2" class="foldopened" onClick="hide_folder('1_29_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/flavors/{flavor_id}</span>
+<ul id="fold1_29_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_29_3" class="foldclosed" onClick="show_folder('1_29_3')" style="POSITION: absolute">+</span> <span id="hide1_29_3" class="foldopened" onClick="hide_folder('1_29_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/flavors/detail</span>
+<ul id="fold1_29_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_30" class="foldclosed" onClick="show_folder('1_30')" style="POSITION: absolute">+</span> <span id="hide1_30" class="foldopened" onClick="hide_folder('1_30')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Keypairs</span>
+<ul id="fold1_30" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_30_1" class="foldclosed" onClick="show_folder('1_30_1')" style="POSITION: absolute">+</span> <span id="hide1_30_1" class="foldopened" onClick="hide_folder('1_30_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-keypairs</span>
+<ul id="fold1_30_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_30_2" class="foldclosed" onClick="show_folder('1_30_2')" style="POSITION: absolute">+</span> <span id="hide1_30_2" class="foldopened" onClick="hide_folder('1_30_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-keypairs/{keypair_name}</span>
+<ul id="fold1_30_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31" class="foldclosed" onClick="show_folder('1_31')" style="POSITION: absolute">+</span> <span id="hide1_31" class="foldopened" onClick="hide_folder('1_31')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Hosts</span>
+<ul id="fold1_31" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_31_1" class="foldclosed" onClick="show_folder('1_31_1')" style="POSITION: absolute">+</span> <span id="hide1_31_1" class="foldopened" onClick="hide_folder('1_31_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hosts</span>
+<ul id="fold1_31_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31_2" class="foldclosed" onClick="show_folder('1_31_2')" style="POSITION: absolute">+</span> <span id="hide1_31_2" class="foldopened" onClick="hide_folder('1_31_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hosts/{host_name}</span>
+<ul id="fold1_31_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31_3" class="foldclosed" onClick="show_folder('1_31_3')" style="POSITION: absolute">+</span> <span id="hide1_31_3" class="foldopened" onClick="hide_folder('1_31_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hosts/{host_name}/startup</span>
+<ul id="fold1_31_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31_4" class="foldclosed" onClick="show_folder('1_31_4')" style="POSITION: absolute">+</span> <span id="hide1_31_4" class="foldopened" onClick="hide_folder('1_31_4')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hosts/{host_name}/shutdown</span>
+<ul id="fold1_31_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_31_5" class="foldclosed" onClick="show_folder('1_31_5')" style="POSITION: absolute">+</span> <span id="hide1_31_5" class="foldopened" onClick="hide_folder('1_31_5')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hosts/{host_name}/reboot</span>
+<ul id="fold1_31_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_32" class="foldclosed" onClick="show_folder('1_32')" style="POSITION: absolute">+</span> <span id="hide1_32" class="foldopened" onClick="hide_folder('1_32')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Hypervisors</span>
+<ul id="fold1_32" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_32_1" class="foldclosed" onClick="show_folder('1_32_1')" style="POSITION: absolute">+</span> <span id="hide1_32_1" class="foldopened" onClick="hide_folder('1_32_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-hypervisors</span>
+<ul id="fold1_32_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_32_1_1" class="foldclosed" onClick="show_folder('1_32_1_1')" style="POSITION: absolute">+</span> <span id="hide1_32_1_1" class="foldopened" onClick="hide_folder('1_32_1_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">GET</span>
+<ul id="fold1_32_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">tenant_id</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">HypervisorHostname</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_33" class="foldclosed" onClick="show_folder('1_33')" style="POSITION: absolute">+</span> <span id="hide1_33" class="foldopened" onClick="hide_folder('1_33')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Networks</span>
+<ul id="fold1_33" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_33_1" class="foldclosed" onClick="show_folder('1_33_1')" style="POSITION: absolute">+</span> <span id="hide1_33_1" class="foldopened" onClick="hide_folder('1_33_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}</span>
+<ul id="fold1_33_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_33_2" class="foldclosed" onClick="show_folder('1_33_2')" style="POSITION: absolute">+</span> <span id="hide1_33_2" class="foldopened" onClick="hide_folder('1_33_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-networks</span>
+<ul id="fold1_33_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_33_3" class="foldclosed" onClick="show_folder('1_33_3')" style="POSITION: absolute">+</span> <span id="hide1_33_3" class="foldopened" onClick="hide_folder('1_33_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-networks/add</span>
+<ul id="fold1_33_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_33_4" class="foldclosed" onClick="show_folder('1_33_4')" style="POSITION: absolute">+</span> <span id="hide1_33_4" class="foldopened" onClick="hide_folder('1_33_4')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-networks/{id}</span>
+<ul id="fold1_33_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_34" class="foldclosed" onClick="show_folder('1_34')" style="POSITION: absolute">+</span> <span id="hide1_34" class="foldopened" onClick="hide_folder('1_34')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Quota Sets</span>
+<ul id="fold1_34" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_34_1" class="foldclosed" onClick="show_folder('1_34_1')" style="POSITION: absolute">+</span> <span id="hide1_34_1" class="foldopened" onClick="hide_folder('1_34_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-quota-sets/{tenant_id}</span>
+<ul id="fold1_34_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_34_2" class="foldclosed" onClick="show_folder('1_34_2')" style="POSITION: absolute">+</span> <span id="hide1_34_2" class="foldopened" onClick="hide_folder('1_34_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-quota-sets/{tenant_id}/defaults</span>
+<ul id="fold1_34_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_35" class="foldclosed" onClick="show_folder('1_35')" style="POSITION: absolute">+</span> <span id="hide1_35" class="foldopened" onClick="hide_folder('1_35')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Scheduler Hints</span>
+<ul id="fold1_35" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_35_1" class="foldclosed" onClick="show_folder('1_35_1')" style="POSITION: absolute">+</span> <span id="hide1_35_1" class="foldopened" onClick="hide_folder('1_35_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers</span>
+<ul id="fold1_35_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_36" class="foldclosed" onClick="show_folder('1_36')" style="POSITION: absolute">+</span> <span id="hide1_36" class="foldopened" onClick="hide_folder('1_36')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Security Groups</span>
+<ul id="fold1_36" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_36_1" class="foldclosed" onClick="show_folder('1_36_1')" style="POSITION: absolute">+</span> <span id="hide1_36_1" class="foldopened" onClick="hide_folder('1_36_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-security-groups</span>
+<ul id="fold1_36_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_36_2" class="foldclosed" onClick="show_folder('1_36_2')" style="POSITION: absolute">+</span> <span id="hide1_36_2" class="foldopened" onClick="hide_folder('1_36_2')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-security-groups/{security_group_id}</span>
+<ul id="fold1_36_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-security-group-rules</span>
+
+</li>
+<li><span id="show1_36_3" class="foldclosed" onClick="show_folder('1_36_3')" style="POSITION: absolute">+</span> <span id="hide1_36_3" class="foldopened" onClick="hide_folder('1_36_3')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/os-security-groups</span>
+<ul id="fold1_36_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_37" class="foldclosed" onClick="show_folder('1_37')" style="POSITION: absolute">+</span> <span id="hide1_37" class="foldopened" onClick="hide_folder('1_37')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Simple Usage</span>
+<ul id="fold1_37" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-simple-tenant-usage</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/os-simple-tenant-usage/{tenant_id}</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_38" class="foldclosed" onClick="show_folder('1_38')" style="POSITION: absolute">+</span> <span id="hide1_38" class="foldopened" onClick="hide_folder('1_38')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Virtual Interfaces</span>
+<ul id="fold1_38" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/virtual_interfaces</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_39" class="foldclosed" onClick="show_folder('1_39')" style="POSITION: absolute">+</span> <span id="hide1_39" class="foldopened" onClick="hide_folder('1_39')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Used Limits</span>
+<ul id="fold1_39" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_39_1" class="foldclosed" onClick="show_folder('1_39_1')" style="POSITION: absolute">+</span> <span id="hide1_39_1" class="foldopened" onClick="hide_folder('1_39_1')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/limits</span>
+<ul id="fold1_39_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">Image(6)</span>
+<ul><li><span id="show1_40" class="foldclosed" onClick="show_folder('1_40')" style="POSITION: absolute">+</span> <span id="hide1_40" class="foldopened" onClick="hide_folder('1_40')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/images</span>
+<ul id="fold1_40" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/images/detail</span>
+
+</li>
+<li><span id="show1_41" class="foldclosed" onClick="show_folder('1_41')" style="POSITION: absolute">+</span> <span id="hide1_41" class="foldopened" onClick="hide_folder('1_41')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/images/{image_id}</span>
+<ul id="fold1_41" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_42" class="foldclosed" onClick="show_folder('1_42')" style="POSITION: absolute">+</span> <span id="hide1_42" class="foldopened" onClick="hide_folder('1_42')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/images/{image_id}/members</span>
+<ul id="fold1_42" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_43" class="foldclosed" onClick="show_folder('1_43')" style="POSITION: absolute">+</span> <span id="hide1_43" class="foldopened" onClick="hide_folder('1_43')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/images/{image_id}/members/{tenant_id}</span>
+<ul id="fold1_43" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_44" class="foldclosed" onClick="show_folder('1_44')" style="POSITION: absolute">+</span> <span id="hide1_44" class="foldopened" onClick="hide_folder('1_44')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/shared-images/{tenant_id}</span>
+<ul id="fold1_44" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">Volumes(18)</span>
+<ul><li><span id="show1_45" class="foldclosed" onClick="show_folder('1_45')" style="POSITION: absolute">+</span> <span id="hide1_45" class="foldopened" onClick="hide_folder('1_45')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Volume</span>
+<ul id="fold1_45" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/volumes</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/volumes/detail</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/volumes/{volume_id}</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/volume_types</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/volume_types/{volume_type_id}</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/snapshots</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/snapshots/detail</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1/{tenant_id}/snapshots/{snapshot_id}</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_46" class="foldclosed" onClick="show_folder('1_46')" style="POSITION: absolute">+</span> <span id="hide1_46" class="foldopened" onClick="hide_folder('1_46')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Extension to Compute API</span>
+<ul id="fold1_46" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-volumes</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-volumes/detail</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-volumes/{volume_id}</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-volume-types</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-volume-types/{volume_type_id}</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-snapshots</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-snapshots/detail</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v1.1/{tenant_id}/os-snapshots/{snapshot_id}</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_47" class="foldclosed" onClick="show_folder('1_47')" style="POSITION: absolute">+</span> <span id="hide1_47" class="foldopened" onClick="hide_folder('1_47')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">Attachments</span>
+<ul id="fold1_47" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/os-volume_attachments</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">v2/{tenant_id}/servers/{server_id}/os-volume_attachments/{attachment_id}</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">Object Storage(14)</span>
+<ul><li><span id="show1_48" class="foldclosed" onClick="show_folder('1_48')" style="POSITION: absolute">+</span> <span id="hide1_48" class="foldopened" onClick="hide_folder('1_48')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/{account}</span>
+<ul id="fold1_48" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">HEAD</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_49" class="foldclosed" onClick="show_folder('1_49')" style="POSITION: absolute">+</span> <span id="hide1_49" class="foldopened" onClick="hide_folder('1_49')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/{account}/{container}</span>
+<ul id="fold1_49" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">HEAD</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_50" class="foldclosed" onClick="show_folder('1_50')" style="POSITION: absolute">+</span> <span id="hide1_50" class="foldopened" onClick="hide_folder('1_50')">-</span>
+<span style="font-family: 新宋体, sans-serif; ">v1/{account}/{container}/{object}</span>
+<ul id="fold1_50" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: 新宋体, sans-serif; ">GET</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">PUT</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">DELETE</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">COPY</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">HEAD</span>
+
+</li>
+<li><span style="font-family: 新宋体, sans-serif; ">POST</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>
