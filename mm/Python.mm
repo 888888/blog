@@ -1,7 +1,7 @@
 <map version="0.9.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Python" ID="ID_1550194971" CREATED="1350554359461" MODIFIED="1350554364671">
-<hook NAME="MapStyle" max_node_width="600"/>
+<hook NAME="MapStyle" zoom="1.464" max_node_width="600"/>
 <node TEXT="&#x5143;&#x7ec4;&#x5143;&#x7d20;&#x7ed3;&#x5c3e;&#x9017;&#x53f7;(&apos;somevalue&apos;,)" POSITION="right" ID="ID_127236633" CREATED="1350554370677" MODIFIED="1350554422208"/>
 <node TEXT="list" POSITION="left" ID="ID_1002223075" CREATED="1350971495190" MODIFIED="1350971497766">
 <node TEXT="append()" ID="ID_1347133056" CREATED="1350971562343" MODIFIED="1350971568381"/>
@@ -62,6 +62,13 @@
 <node TEXT="string" POSITION="left" ID="ID_680150888" CREATED="1359611123170" MODIFIED="1359611124884">
 <node TEXT="&#x66ff;&#x6362;" ID="ID_44204575" CREATED="1359620559131" MODIFIED="1359620561369">
 <node TEXT="string.replace(&apos;old&apos;,&apos;new&apos;,count)" ID="ID_1719941348" CREATED="1359620562339" MODIFIED="1359620576160"/>
+</node>
+</node>
+<node TEXT="&#x65f6;&#x95f4;" POSITION="right" ID="ID_1305799567" CREATED="1367901604866" MODIFIED="1367901607573">
+<node TEXT="datetime" ID="ID_947893913" CREATED="1367901609011" MODIFIED="1367901614084">
+<node TEXT="GMT_FORMAT = &apos;%a, %d %b %Y %H:%M:%S GMT&apos;" ID="ID_1984932604" CREATED="1367901615203" MODIFIED="1367901615736"/>
+<node TEXT="strftime()" ID="ID_369482482" CREATED="1367901616891" MODIFIED="1367901621552"/>
+<node TEXT="strptime()" ID="ID_1057424294" CREATED="1367901621874" MODIFIED="1367901625035"/>
 </node>
 </node>
 </node>

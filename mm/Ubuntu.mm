@@ -1,6 +1,6 @@
 <map version="0.9.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="se" ID="ID_822619095" CREATED="1348801624976" MODIFIED="1365386111964">
+<node TEXT="Ubuntu" ID="ID_822619095" CREATED="1348801624976" MODIFIED="1368583141856">
 <hook NAME="MapStyle" zoom="1.331" max_node_width="600"/>
 <font NAME="AR PL UKai CN" SIZE="12" BOLD="false"/>
 <node TEXT="&#x81ea;&#x52a8;&#x542f;&#x52a8;" POSITION="right" ID="ID_1820635716" CREATED="1348801766459" MODIFIED="1356586764440">
@@ -96,6 +96,9 @@
 <node TEXT="&#x7528;root&#x7528;&#x6237;&#x4fee;&#x6216;&#x8005;sudo" ID="ID_889809151" CREATED="1355393385005" MODIFIED="1355393394722"/>
 </node>
 </node>
+<node TEXT="&#x66f4;&#x6539;uid,gid" ID="ID_917646127" CREATED="1368778717314" MODIFIED="1368778723046">
+<node TEXT="find / -user OLDID -exec chown NEWID {} \;" ID="ID_1260061071" CREATED="1368778724526" MODIFIED="1368778749416"/>
+</node>
 </node>
 <node TEXT="&#x7f51;&#x7edc;" POSITION="left" ID="ID_1782213421" CREATED="1355364838444" MODIFIED="1356586764434">
 <font NAME="AR PL UKai CN" SIZE="12"/>
@@ -120,6 +123,7 @@
 <node TEXT="lsof -i:53" ID="ID_1502377604" CREATED="1365386136419" MODIFIED="1365386149536"/>
 <node TEXT="1. &#x53ef;&#x4ee5;&#x901a;&#x8fc7;&quot;netstat -anp&quot; &#x6765;&#x67e5;&#x770b;&#x54ea;&#x4e9b;&#x7aef;&#x53e3;&#x88ab;&#x6253;&#x5f00;&#x3002;&#xa;&#xff08;&#x6ce8;&#xff1a;&#x52a0;&#x53c2;&#x6570;&apos;-n&apos;&#x4f1a;&#x5c06;&#x5e94;&#x7528;&#x7a0b;&#x5e8f;&#x8f6c;&#x4e3a;&#x7aef;&#x53e3;&#x663e;&#x793a;&#xff0c;&#x5373;&#x6570;&#x5b57;&#x683c;&#x5f0f;&#x7684;&#x5730;&#x5740;&#xff0c;&#x5982;&#xff1a;nfs-&gt;2049, ftp-&gt;21&#xff0c;&#x56e0;&#x6b64;&#x53ef;&#x4ee5;&#x5f00;&#x542f;&#x4e24;&#x4e2a;&#x7ec8;&#x7aef;&#xff0c;&#x4e00;&#x4e00;&#x5bf9;&#x5e94;&#x4e00;&#x4e0b;&#x7a0b;&#x5e8f;&#x6240;&#x5bf9;&#x5e94;&#x7684;&#x7aef;&#x53e3;&#x53f7;&#xff09;&#xa;2. &#x7136;&#x540e;&#x53ef;&#x4ee5;&#x901a;&#x8fc7;&quot;lsof -i:$PORT&quot;&#x67e5;&#x770b;&#x5e94;&#x7528;&#x8be5;&#x7aef;&#x53e3;&#x7684;&#x7a0b;&#x5e8f;&#xff08;$PORT&#x6307;&#x5bf9;&#x5e94;&#x7684;&#x7aef;&#x53e3;&#x53f7;&#xff09;&#x3002;&#x6216;&#x8005;&#x4f60;&#x4e5f;&#x53ef;&#x4ee5;&#x67e5;&#x770b;&#x6587;&#x4ef6;/etc/services&#xff0c;&#x4ece;&#x91cc;&#x9762;&#x53ef;&#x4ee5;&#x627e;&#x51fa;&#x7aef;&#x53e3;&#x6240;&#x5bf9;&#x5e94;&#x7684;&#x670d;&#x52a1;&#x3002;&#xa;&#xff08;&#x6ce8;&#xff1a;&#x6709;&#x4e9b;&#x7aef;&#x53e3;&#x901a;&#x8fc7;netstat&#x67e5;&#x4e0d;&#x51fa;&#x6765;&#xff0c;&#x66f4;&#x53ef;&#x9760;&#x7684;&#x65b9;&#x6cd5;&#x662f;&quot;sudo nmap -sT -O localhost&quot;&#xff09;&#xa;3. &#x82e5;&#x8981;&#x5173;&#x95ed;&#x67d0;&#x4e2a;&#x7aef;&#x53e3;&#xff0c;&#x5219;&#x53ef;&#x4ee5;&#xff1a;&#xa;1)&#x901a;&#x8fc7;iptables&#x5de5;&#x5177;&#x5c06;&#x8be5;&#x7aef;&#x53e3;&#x7981;&#x6389;&#xff0c;&#x5982;&#xff1a;&#xa;&quot;sudo iptables -A INPUT -p tcp --dport $PORT -j DROP&quot;&#xa;&quot;sudo iptables -A OUTPUT -p tcp --dport $PORT -j DROP&quot;    &#xa;2)&#x6216;&#x8005;&#x5173;&#x6389;&#x5bf9;&#x5e94;&#x7684;&#x5e94;&#x7528;&#x7a0b;&#x5e8f;&#xff0c;&#x5219;&#x7aef;&#x53e3;&#x5c31;&#x81ea;&#x7136;&#x5173;&#x95ed;&#x4e86;&#xff0c;&#x5982;&#xff1a;&#xa;&quot;kill -9 PID&quot; (PID&#xff1a;&#x8fdb;&#x7a0b;&#x53f7;)&#xa;&#x5982;&#xff1a;    &#x901a;&#x8fc7;&quot;netstat -anp | grep ssh&quot;&#xa;&#x6709;&#x663e;&#x793a;&#xff1a;    tcp 0 127.0.0.1:2121 0.0.0.0:* LISTEN 7546/ssh&#xa;&#x5219;&#xff1a;    &quot;kill -9 7546&quot;" ID="ID_883764791" CREATED="1365386215563" MODIFIED="1365386217813"/>
 </node>
+<node TEXT="fping -a -g 192.168.1.1 192.168.1.100" ID="ID_892150642" CREATED="1368166354400" MODIFIED="1368166368612"/>
 </node>
 <node TEXT="kvm" POSITION="right" ID="ID_1324226650" CREATED="1355377641869" MODIFIED="1356586764434">
 <font NAME="AR PL UKai CN" SIZE="12"/>
@@ -285,6 +289,13 @@
 </node>
 <node TEXT="&#x6587;&#x4ef6;&#x7ba1;&#x7406;" POSITION="right" ID="ID_790834629" CREATED="1359423763847" MODIFIED="1359423770237">
 <node TEXT="nautilus root&#x6743;&#x9650;&#x7ba1;&#x7406;&#x5668;" ID="ID_402157036" CREATED="1359423770799" MODIFIED="1359423779381"/>
+<node TEXT="&#x67e5;&#x627e;&#x6587;&#x4ef6;" ID="ID_979015931" CREATED="1368004316995" MODIFIED="1368004321465">
+<node TEXT="locate" ID="ID_986061242" CREATED="1368004322594" MODIFIED="1368004325064"/>
+<node TEXT="find" ID="ID_1394858391" CREATED="1368004325586" MODIFIED="1368004328894"/>
+</node>
+<node TEXT="&#x67e5;&#x627e;&#x6587;&#x4ef6;&#x4e2d;&#x662f;&#x5426;&#x5305;&#x542b;&#x5b57;&#x7b26;" ID="ID_957642906" CREATED="1368004330817" MODIFIED="1368004343783">
+<node TEXT="grep -r -i main ./" ID="ID_1203856901" CREATED="1368004345210" MODIFIED="1368004347262"/>
+</node>
 </node>
 <node TEXT="&#x5e38;&#x7528;&#x547d;&#x4ee4;" POSITION="left" ID="ID_189718633" CREATED="1361934335065" MODIFIED="1361934343539">
 <node TEXT="uptime" ID="ID_145821289" CREATED="1361934344477" MODIFIED="1361934346442">
@@ -301,6 +312,45 @@
 <node TEXT="remmina" ID="ID_355447089" CREATED="1365471517114" MODIFIED="1365471522983">
 <node TEXT="&#x5220;&#x6389;~/.freerdp/known_hosts" ID="ID_1558405298" CREATED="1365471509731" MODIFIED="1365471513714"/>
 </node>
+</node>
+<node TEXT="&#x67e5;&#x8be2;&#x7aef;&#x53e3;&#x7a0b;&#x5e8f;" POSITION="left" ID="ID_253004721" CREATED="1366856586617" MODIFIED="1366856592825">
+<node TEXT="lsmod -i:port" ID="ID_115007447" CREATED="1366856593915" MODIFIED="1366856599135"/>
+</node>
+<node TEXT="iptables" POSITION="right" ID="ID_425761587" CREATED="1368582808376" MODIFIED="1368582810949">
+<node TEXT="&#x67e5;&#x770b;" ID="ID_883496947" CREATED="1368583184846" MODIFIED="1368583189363">
+<node TEXT="iptables -nvL &#x2013;line-number -t nat" ID="ID_1494107744" CREATED="1368583190398" MODIFIED="1368583200195"/>
+</node>
+<node TEXT="&#x6dfb;&#x52a0;" ID="ID_872362325" CREATED="1368583205966" MODIFIED="1368583209828">
+<node TEXT="iptables -A INPUT -s 192.168.1.5 -j DROP" ID="ID_390496440" CREATED="1368583211374" MODIFIED="1368583231460"/>
+<node TEXT="iptables -I INPUT 3 -s 192.168.1.3 -j DROP" ID="ID_726674538" CREATED="1368583250372" MODIFIED="1368583250372"/>
+</node>
+<node TEXT="&#x5220;&#x9664;" ID="ID_1585001422" CREATED="1368583282718" MODIFIED="1368583285018">
+<node TEXT="iptables -D INPUT -s 192.168.1.5 -j DROP" ID="ID_607022490" CREATED="1368583287758" MODIFIED="1368583297088"/>
+<node TEXT="iptables -D INPUT 2" ID="ID_946061023" CREATED="1368583310197" MODIFIED="1368583311099"/>
+</node>
+<node TEXT="&#x4fee;&#x6539;" ID="ID_1364189290" CREATED="1368583323397" MODIFIED="1368583325252">
+<node TEXT="iptables -R INPUT 3 -j ACCEPT" ID="ID_1336549860" CREATED="1368583326469" MODIFIED="1368583329058"/>
+</node>
+<node TEXT="&#x6e05;&#x7a7a;" ID="ID_376631230" CREATED="1368583361733" MODIFIED="1368583366882">
+<node TEXT="  linux&#x4e0b;&#x6e05;&#x7a7a;iptables&#x89c4;&#x5219;&#x5177;&#x4f53;&#x65b9;&#x6cd5;&#x5982;&#x4e0b;&#xff1a;&#xa;    iptables -t nat -F&#xa;    iptables -t nat -X&#xa;    iptables -t nat -P PREROUTING ACCEPT&#xa;    iptables -t nat -P POSTROUTING ACCEPT&#xa;    iptables -t nat -P OUTPUT ACCEPT&#xa;    iptables -t mangle -F&#xa;    iptables -t mangle -X&#xa;    iptables -t mangle -P PREROUTING ACCEPT&#xa;    iptables -t mangle -P INPUT ACCEPT&#xa;    iptables -t mangle -P FORWARD ACCEPT&#xa;    iptables -t mangle -P OUTPUT ACCEPT&#xa;    iptables -t mangle -P POSTROUTING ACCEPT&#xa;    iptables -F&#xa;    iptables -X&#xa;    iptables -P FORWARD ACCEPT&#xa;    iptables -P INPUT ACCEPT&#xa;    iptables -P OUTPUT ACCEPT&#xa;    iptables -t raw -F&#xa;    iptables -t raw -X&#xa;    iptables -t raw -P PREROUTING ACCEPT&#xa;    iptables -t raw -P OUTPUT ACCEPT" ID="ID_1580005204" CREATED="1368582811794" MODIFIED="1368582812264"/>
+</node>
+</node>
+<node TEXT="SSH" POSITION="left" ID="ID_229808792" CREATED="1368583518332" MODIFIED="1368583519794">
+<node TEXT="&#x4f7f;&#x7528;ping&#x547d;&#x4ee4;&#x4e34;&#x65f6;&#x5f00;&#x542f;ssh&#x7aef;&#x53e3;&#xa;1&#x3001;iptables&#x89c4;&#x5219;&#x8bbe;&#x5b9a;&#xa;#&#x6307;&#x5b9a;88&#x5b57;&#x8282;&#x7684;icmp&#x6570;&#x636e;&#x5305;(&#x5305;&#x542b;IP&#x5934;&#x90e8;20&#x5b57;&#x8282;&#xff0c;ICMP&#x5934;&#x90e8;8&#x5b57;&#x8282;)&#x901a;&#x8fc7;&#x88ab;&#x52a0;&#x5165;open&#x5217;&#x8868;&#x3002;&#xa;iptables -A INPUT -p icmp &#x2013;icmp-type 8 -m length &#x2013;length 88 -m recent &#x2013;set &#x2013;name open &#x2013;rsource -j ACCEPT&#xa;#&#x68c0;&#x67e5;open&#x5217;&#x8868;&#x662f;&#x5426;&#x5b58;&#x5728;&#x4f60;&#x7684;&#x6765;&#x6e90;IP&#xff0c;&#x5982;&#x5b58;&#x5728;&#xff0c;&#x5373;&#x4ece;&#x7b2c;&#x4e00;&#x6b21;&#x4f7f;&#x7528;&#x5bc6;&#x4ee4;&#x5f00;&#x59cb;30&#x79d2;&#x949f;&#x5185;&#x5f00;&#x542f;ssh&#x7aef;&#x53e3;22,&#x8d85;&#x8fc7;30&#x79d2;&#x7aef;&#x53e3;&#x81ea;&#x52a8;&#x5173;&#x95ed;&#xff0c;&#x4e0d;&#x518d;&#x5141;&#x8bb8;&#x65b0;&#x8fde;&#x63a5;&#xff0c;&#x5df2;&#x8fde;&#x63a5;&#x7684;&#x4e0d;&#x4f1a;&#x65ad;&#x5f00;&#x3002;&#xa;iptables -A INPUT -p tcp &#x2013;dport 22 &#x2013;syn -m recent &#x2013;rcheck &#x2013;seconds 30 &#x2013;name open &#x2013;rsource -j ACCEPT&#xa;2&#x3001;&#x4e34;&#x65f6;&#x5f00;&#x542f;ssh&#x7aef;&#x53e3;&#x5bc6;&#x4ee4;&#xa;linux&#x4e0b;:ping -s 60 host&#xa;windows&#x4e0b;:ping -l 60 host" ID="ID_1979137518" CREATED="1368583520748" MODIFIED="1368583542830"/>
+</node>
+<node TEXT="route" POSITION="right" ID="ID_494518084" CREATED="1368583809554" MODIFIED="1368583810959">
+<node TEXT="&#x5f00;&#x542f;&#x5185;&#x6838;&#x8def;&#x7531;&#x8f6c;&#x53d1;" ID="ID_40421484" CREATED="1368583813482" MODIFIED="1368583825039">
+<node TEXT="echo 1 &gt; /proc/sys/net/ipv4/ip_forward" ID="ID_1743615653" CREATED="1368583825947" MODIFIED="1368583833974"/>
+</node>
+<node TEXT="&#x6dfb;&#x52a0;&#x9ed8;&#x8ba4;&#x7f51;&#x5173;" ID="ID_1137213029" CREATED="1368583841114" MODIFIED="1368583847270">
+<node TEXT="route add default gw 192.168.0.1" ID="ID_956085254" CREATED="1368583848074" MODIFIED="1368583859126"/>
+</node>
+<node TEXT="&#x67e5;&#x770b;" ID="ID_1837801457" CREATED="1368583881009" MODIFIED="1368583883159">
+<node TEXT="route -n" ID="ID_33903012" CREATED="1368583884490" MODIFIED="1368583886350"/>
+</node>
+</node>
+<node TEXT="WPS" POSITION="left" ID="ID_1912897912" CREATED="1369117938524" MODIFIED="1369117940178">
+<node TEXT="http://community.wps.cn/" ID="ID_1339435837" CREATED="1369117943251" MODIFIED="1369117944225"/>
 </node>
 </node>
 </map>
