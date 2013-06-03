@@ -1,60 +1,16 @@
-<map version="freeplane 1.2.0">
+<map version="0.9.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="Openstack" ID="ID_800270254" CREATED="1355189894997" MODIFIED="1355724919212"><hook NAME="MapStyle">
-
-<map_styles>
-<stylenode LOCALIZED_TEXT="styles.root_node">
-<stylenode LOCALIZED_TEXT="styles.predefined" POSITION="right">
-<stylenode LOCALIZED_TEXT="default" MAX_WIDTH="600" COLOR="#000000" STYLE="as_parent">
-<font NAME="SansSerif" SIZE="10" BOLD="false" ITALIC="false"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="defaultstyle.details"/>
-<stylenode LOCALIZED_TEXT="defaultstyle.note"/>
-<stylenode LOCALIZED_TEXT="defaultstyle.floating">
-<edge STYLE="hide_edge"/>
-<cloud COLOR="#f0f0f0" SHAPE="ROUND_RECT"/>
-</stylenode>
-</stylenode>
-<stylenode LOCALIZED_TEXT="styles.user-defined" POSITION="right">
-<stylenode LOCALIZED_TEXT="styles.topic" COLOR="#18898b" STYLE="fork">
-<font NAME="Liberation Sans" SIZE="10" BOLD="true"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="styles.subtopic" COLOR="#cc3300" STYLE="fork">
-<font NAME="Liberation Sans" SIZE="10" BOLD="true"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="styles.subsubtopic" COLOR="#669900">
-<font NAME="Liberation Sans" SIZE="10" BOLD="true"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="styles.important">
-<icon BUILTIN="yes"/>
-</stylenode>
-</stylenode>
-<stylenode LOCALIZED_TEXT="styles.AutomaticLayout" POSITION="right">
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level.root" COLOR="#000000">
-<font SIZE="18"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,1" COLOR="#0033ff">
-<font SIZE="16"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,2" COLOR="#00b439">
-<font SIZE="14"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,3" COLOR="#990000">
-<font SIZE="12"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,4" COLOR="#111111">
-<font SIZE="10"/>
-</stylenode>
-</stylenode>
-</stylenode>
-</map_styles>
-</hook>
+<node TEXT="Openstack" ID="ID_800270254" CREATED="1355189894997" MODIFIED="1355724919212">
+<hook NAME="MapStyle" max_node_width="600"/>
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 <node TEXT="Compute" POSITION="right" ID="ID_752222090" CREATED="1355190939166" MODIFIED="1355724919216">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 </node>
 <node TEXT="Object Storage" POSITION="right" ID="ID_654936394" CREATED="1355190942150" MODIFIED="1355724919218">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
+<node TEXT="Cinder" ID="ID_169797340" CREATED="1369275175950" MODIFIED="1369275178178">
+<node TEXT="/etc/lvm/lvm.conf" ID="ID_1325582381" CREATED="1369275179643" MODIFIED="1369275194000"/>
+</node>
 </node>
 <node TEXT="Identity Service" POSITION="right" ID="ID_1767540769" CREATED="1355190948326" MODIFIED="1355724919220">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
@@ -76,22 +32,22 @@
 <node TEXT="Workflow" ID="ID_1692211440" CREATED="1355191874280" MODIFIED="1355724919230">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 <node TEXT="asking for an authorization token" ID="ID_878876932" CREATED="1355191879048" MODIFIED="1355724919231">
-<icon BUILTIN="full-1"/>
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
+<icon BUILTIN="full-1"/>
 <node TEXT="curl -k -X &apos;POST&apos; -v https://arm.trystack.org:5443/v2.0/tokens -d &apos;{&quot;auth&quot;:{&quot;passwordCredentials&quot;:{&quot;username&quot;: &quot;joecool&quot;, &quot;password&quot;:&quot;coolword&quot;}, &quot;tenantId&quot;:&quot;5&quot;}}&apos; -H &apos;Content-type: application/json&apos;" ID="ID_1860679684" CREATED="1355191901568" MODIFIED="1355724919232">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 </node>
 </node>
 <node TEXT="Use the token to send API request with the X-Auth-Token included as an header field" ID="ID_1939280812" CREATED="1355192098846" MODIFIED="1355724919237">
-<icon BUILTIN="full-2"/>
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
+<icon BUILTIN="full-2"/>
 <node TEXT="curl -k -D - -H &quot;X-Auth-Token: 7d2f63fd-4dcc-4752-8e9b-1d08f989cc00&quot; -X &apos;GET&apos; -v https://arm.trystack.org:9774/v1.1/296/extensions  -H &apos;Content-type: application/json&apos;" ID="ID_202461204" CREATED="1355192160814" MODIFIED="1355724919239">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 </node>
 </node>
 <node TEXT="job is down or get a 401 response" ID="ID_1967366510" CREATED="1355192227358" MODIFIED="1355724919242">
-<icon BUILTIN="full-3"/>
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
+<icon BUILTIN="full-3"/>
 <node TEXT="if get 401 response &#xa;then request token agin" ID="ID_1288097114" CREATED="1355192263046" MODIFIED="1355724919242">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 </node>
@@ -159,8 +115,8 @@
 </node>
 <node TEXT="API Reference (132)" ID="ID_172311946" CREATED="1355384173107" MODIFIED="1355724919263">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
-<node ID="ID_1481496650" CREATED="1355384194938" MODIFIED="1355724919263"><richcontent TYPE="NODE">
-
+<node ID="ID_1481496650" CREATED="1355384194938" MODIFIED="1355724919263">
+<richcontent TYPE="NODE">
 <html>
   <head>
     
@@ -170,8 +126,7 @@
       Identity(2)
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
 <node TEXT="v2.0/tokens" ID="ID_249580745" CREATED="1355384263050" MODIFIED="1355724919265">
 <font NAME="&#x65b0;&#x5b8b;&#x4f53;"/>
